@@ -2,11 +2,16 @@
 
 int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in_opt LPSTR lpCmdLine, __in int nShowCmd )
 {
+    mMYINFO.mScreenXSize = RES_WIDTH;
+    mMYINFO.mScreenYSize = RES_HEIGHT;
+    mMYINFO.mScreenXPosSize = 1024.0f;//don't change
+    mMYINFO.mScreenYPosSize = 768.0f;//don't change
+
     WNDCLASSEX wCls = { 0 };
 	MSG nMss = { 0 };
 	RECT rc;
 	HWND hWnd;
-	int X = 0, Y = 0, Height = 0, Width = 0;
+	int X = 0, Y = 0, Width = mMYINFO.mScreenXSize, Height = mMYINFO.mScreenYSize;
 	DWORD dwExStyle = WS_EX_APPWINDOW;
 	DWORD dwStyle = WS_POPUP;
 
@@ -26,12 +31,13 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, 
     {
         return MessageBox( "[Error::RegisterClassEx()]" );
     }
+    //hFullScreen = TRUE;
     if ( !hFullScreen )
     {
         dwExStyle = 0;
         dwStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE;
         //dwExStyle = WS_EX_ACCEPTFILES;
-        if ( !SetRect( &rc, 0, 0, RES_WIDTH, RES_HEIGHT ) )
+        if ( !SetRect( &rc, 0, 0, Width, Height ) )
         {
             return MessageBox( "[Error::SetRect()]" );
         }

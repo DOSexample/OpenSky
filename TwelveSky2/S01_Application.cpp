@@ -74,10 +74,8 @@ BOOL ApplicationInit( HINSTANCE hThis, HWND hWnd )
 {
     SetCurrentDirectory( ROOT_DIR );
 
+    srand( (unsigned int)time(NULL) );
     mGXD.InitForSound();
-
-    mMYINFO.mScreenXSize = RES_WIDTH;
-    mMYINFO.mScreenYSize = RES_HEIGHT;
 
     D3DXFONT_DESC tFont;
     int tResult;
@@ -85,13 +83,13 @@ BOOL ApplicationInit( HINSTANCE hThis, HWND hWnd )
     memset( &tFont, 0, sizeof(D3DXFONT_DESC) );
     tFont.Height = 16;
     tFont.Width = 5;
-    tFont.Weight = 0;
+    tFont.Weight = FW_DONTCARE;
     tFont.MipLevels = 1;
     tFont.Italic = 0;
-    tFont.CharSet = 1;
-    tFont.OutputPrecision = 0;
-    tFont.Quality = 5;
-    tFont.PitchAndFamily = 0;
+    tFont.CharSet = DEFAULT_CHARSET;
+    tFont.OutputPrecision = OUT_DEFAULT_PRECIS;
+    tFont.Quality = CLEARTYPE_QUALITY;
+    tFont.PitchAndFamily = DEFAULT_PITCH;
     strcpy( tFont.FaceName, "MS Sans Serif" );
 
     hMainWindow = hWnd;

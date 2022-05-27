@@ -14,6 +14,7 @@ void MAIN::Logic2( float dTime )
 	}
 }
 
+#include <CString.h>
 void MAIN::Draw2( float dTime )
 {
     POINT Point;
@@ -22,8 +23,10 @@ void MAIN::Draw2( float dTime )
     ScreenToClient( hMainWindow, &Point );
     int mX = Point.x;
     int mY = Point.y;
-    int sx2 = mMYINFO.mScreenXSize / mMYINFO.mScreenXPosSize;
-    int sy2 = mMYINFO.mScreenYSize / mMYINFO.mScreenYPosSize;
+    float sx2 = (float)mMYINFO.mScreenXSize / mMYINFO.mScreenXPosSize;
+    float sy2 = (float)mMYINFO.mScreenYSize / mMYINFO.mScreenYPosSize;
+    OutputDebugStringA( CString("").Sprintf( "scaleX=%f\n", sx2 ) );
+    OutputDebugStringA( CString("").Sprintf( "scaleY=%f\n", sy2 ) );
     mGDATA.mUI_MAIN[mGroupBG].Display( 0, 0, sx2, sy2 );
     int hx2 = mMYINFO.mScreenXSize / 2;
     int hy2 = mMYINFO.mScreenYSize / 2;

@@ -38,10 +38,10 @@ void MAIN::Draw1( float dTime )
         int load = mSubMode + 797;
         if ( load > 830 )
             load = 830;
-        int v2 = mMYINFO.mScreenXSize / 2;
-        int sX = v2 - mGDATA.mUI_MAIN[load].GetXSize() / 2;
-        int v3 = mMYINFO.mScreenYSize / 2;
-        int sY = v3 - mGDATA.mUI_MAIN[load].GetXSize() / 2;
+        int x = mMYINFO.mScreenXSize / 2;
+        int y = mMYINFO.mScreenYSize / 2;
+        int sX = x - mGDATA.mUI_MAIN[load].GetXSize() / 2;
+        int sY = y - mGDATA.mUI_MAIN[load].GetYSize() / 2;
         mGDATA.mUI_MAIN[load].Display( sX, sY );
     }
     mGXD.EndFor2D();
