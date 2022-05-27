@@ -1,0 +1,14 @@
+#version 150
+
+uniform sampler2D tex2D;
+
+in vec4 vertColor;
+in vec3 vertTexcoord;
+
+out vec4 fragColor;
+
+void main()
+{
+    vec4 texel = texture2D(tex2D, vertTexcoord.st);
+    fragColor = texel * vertColor;
+}

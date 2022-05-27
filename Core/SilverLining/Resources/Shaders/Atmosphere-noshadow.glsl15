@@ -1,0 +1,29 @@
+#version 150
+
+in vec3 vertex;
+in vec4 color;
+in vec3 texcoord;
+
+out vec4 vertColor;
+
+uniform mat4 modelViewProj;
+uniform vec4 sunPosition;
+uniform mat4 world;
+uniform vec4 fadeDistVec;
+
+void main()
+{
+    vec4 pos = vertex;
+    float r = fadeDistVec.z + texcoord.y;
+    pos.x = r * cos(texcoord.x);
+    pos.y = r * sin(texcoord.x);
+    gl_Position = mul(modelViewProj, pos);
+
+    float fade = fadeDistVec.y;
+    float d = texcoord.z;
+    vec4 density = vec4(d, d, d, 1.0);
+    vec4 baseColor = vec4(0.5, 0.5, 1.0, 1.0);
+    vec4 fadeColor = vec4(fade, fade, fade, 1.0);
+
+    vertColor = baseColor * density * fadeColor;
+}

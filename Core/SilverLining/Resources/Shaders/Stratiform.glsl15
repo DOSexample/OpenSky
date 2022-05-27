@@ -1,0 +1,37 @@
+#version 150
+
+in vec3 vertex;
+in vec4 color;
+in vec3 texcoord;
+
+out vec4 vertColor;
+out vec3 vertTexcoord;
+out float vertFogFragCoord;
+
+uniform sampler2D tex2D;
+uniform mat4 modelViewProj;
+uniform mat4 modelView;
+uniform vec4 displacementVectorAndContrast;
+uniform vec4 fadeAndDisplacementFactor;
+uniform vec4 upVectorAndThickness;
+
+void main()
+{
+    vec4 position = vertex;
+
+    vertTexcoord = texcoord;
+
+    float contrast = displacementVectorAndContrast.w;
+    vec3 displacement = ((texture2D(tex2D, texcoord.xy).x - (1.0 - contrast)) / contrast) * displacementVectorAndContrast.xyz - displacementVectorAndContrast.xyz;
+    displacement -= upVectorAndThickness.xyz * (1.0 - (texture2D(tex2D, texcoord.xy).w)) * upVectorAndThickness.w;
+    displacement *= fadeAndDisplacementFactor.y;
+    position.xyz += displacement;
+
+    vec4 eyePos4 = modelView * vertex;
+    vec3 eyePosition = eyePos4.xyz / eyePos4.w;
+    vertFogFragCoord = length(eyePosition);
+
+    vertColor = vec4(gl_Color.x, gl_Color.y, gl_Color.z, gl_Color.w * fadeAndDisplacementFactor.x);
+
+    gl_Position = (modelViewProj * vertex);
+}

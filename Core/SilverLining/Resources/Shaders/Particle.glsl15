@@ -1,0 +1,20 @@
+#version 150
+
+in vec3 vertex;
+in vec4 color;
+in vec3 texcoord;
+
+out vec4 vertColor;
+out vec3 vertTexcoord;
+
+uniform mat4 modelViewProj;
+uniform vec4 lightingColor;
+
+void main()
+{
+    vertColor = lightingColor;
+
+    gl_Position = modelViewProj * vec4(vertex.x, vertex.y, vertex.z, 1.0);
+
+    vertTexcoord = texcoord;
+}

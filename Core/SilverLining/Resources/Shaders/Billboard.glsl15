@@ -1,0 +1,67 @@
+#version 150
+
+in vec3 vertex;
+in vec4 color;
+in vec3 texcoord;
+
+out vec4 vertColor;
+out vec3 vertTexcoord;
+
+uniform mat4 modelView;
+uniform mat4 modelViewProj;
+uniform mat4 billboard;
+uniform vec4 flipTCoordsAndFogDensity;
+uniform vec4 fogColor;
+uniform vec4 billboardColor;
+uniform vec4 fade;
+
+void main()
+{
+	vec4 vertex4 = vec4(vertex.x, vertex.y, vertex.z, 1.0);
+    vec3 eyePosition = (modelView * vertex4).xyz;
+    float fogDistance = length(eyePosition);
+    float fogExponent = fogDistance * flipTCoordsAndFogDensity.y;
+    float fogFactor = clamp(exp(-abs(fogExponent)), 0.0, 1.0);
+    vec4 preFadedColor;
+
+    if (billboardColor.w > 0.0)
+    {
+        preFadedColor.xyz = mix(fogColor.xyz, billboardColor.xyz, fogFactor);
+        preFadedColor.w = billboardColor.w;
+    }
+    else
+    {
+        preFadedColor = mix(fogColor, color, fogFactor);
+    }
+
+    vertColor = mix(vec4(0.0, 0.0, 0.0, 0.0), preFadedColor, fade * (1 - fogExponent * fogExponent));
+
+    vec3 texCoord3 = texcoord.xyz;
+
+    vec4 vertPos = vec4(texCoord3.x * sign(texCoord3.y), texCoord3.x * sign(texCoord3.z), 0.0, 1.0);
+
+    vec4 rotatedPos;
+
+    float size = abs(texCoord3.z);
+    float cosLength = cos(size);
+    float sinLength = sin(size);
+
+    rotatedPos.x = (cosLength * vertPos.x + -sinLength * vertPos.y);
+    rotatedPos.y = (sinLength * vertPos.x + cosLength * vertPos.y);
+    rotatedPos.z = 0.0;
+    rotatedPos.w = 1.0;
+
+    mat4 xlate = mat4(1.0, 0.0, 0.0, 0.0,
+                      0.0, 1.0, 0.0, 0.0,
+                      0.0, 0.0, 1.0, 0.0,
+                      vertex.x, vertex.y, vertex.z, 1.0);
+
+    mat4 xlatebb = (xlate * billboard);
+    mat4 mvb = (modelViewProj * xlatebb);
+    gl_Position = (mvb * rotatedPos);
+
+    vertTexcoord = vec3(0.5 * sign(texCoord3.y) + 0.5,
+                          0.5 * sign(texCoord3.z) * flipTCoordsAndFogDensity.x + 0.5,
+                          0.0);
+
+}

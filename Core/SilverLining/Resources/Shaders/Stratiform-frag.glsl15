@@ -1,0 +1,20 @@
+#version 150
+
+uniform vec4 fogColorAndDensity;
+uniform sampler2D tex2D;
+
+in vec4 vertColor;
+in vec3 vertTexcoord;
+in float vertFogFragCoord;
+
+out vec4 fragColor;
+
+void main()
+{
+    vec4 fogColor = vec4(fogColorAndDensity.x, fogColorAndDensity.y, fogColorAndDensity.z, 1.0);
+    float fogExponent = vertFogFragCoord * fogColorAndDensity.w;
+    float fogFactor = clamp(exp(-abs(fogExponent)), 0.0, 1.0);
+    vec4 texel = texture2D(tex2D, vertTexcoord.st);
+    fragColor = mix(fogColor, texel * vertColor, fogFactor);
+
+}

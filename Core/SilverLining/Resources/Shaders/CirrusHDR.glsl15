@@ -1,0 +1,28 @@
+#version 150
+
+in vec3 vertex;
+in vec4 color;
+in vec3 texcoord;
+
+out vec4 vertColor;
+out vec3 vertTexcoord;
+
+uniform mat4 modelView;
+uniform mat4 modelViewProj;
+uniform vec4 fogColorAndDensity;
+uniform vec4 lightingColor;
+
+void main()
+{
+    vec3 eyePosition = (modelView * vec4(vertex.x , vertex.y, vertex.z, 1.0)).xyz;
+    float fogDistance = length(eyePosition);
+    float fogExponent = fogDistance * fogColorAndDensity.w;
+    float fogFactor = clamp(exp(-abs(fogExponent)), 0.0, 1.0);
+
+    vertColor.xyz = mix(fogColorAndDensity.xyz, lightingColor.xyz, fogFactor);
+    vertColor.w = 1.0;
+
+    gl_Position = (modelViewProj * vec4(vertex.x, vertex.y, vertex.z, 1.0));
+
+    vertTexcoord = texcoord;
+}

@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwelveSky2", "TwelveSky2\TwelveSky2.vcxproj", "{4ABEBA79-1911-4C5E-B90E-0143BF3B51B6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GXD", "Core\GXD\GXD.vcxproj", "{E3229E28-5A95-4AE9-BDF0-D7185D00BAD7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TW2AddIn", "Core\TW2AddIn\TW2AddIn.vcxproj", "{328EB228-49F2-4C99-A584-B9B11B39E07B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Share", "Share", "{162D205B-CE48-498F-82A3-0D6A1BC009E9}"
+	ProjectSection(SolutionItems) = preProject
+		Core\DXHelper.h = Core\DXHelper.h
+		Core\ShareHeader.h = Core\ShareHeader.h
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4ABEBA79-1911-4C5E-B90E-0143BF3B51B6}.Release|x86.ActiveCfg = Release|Win32
+		{4ABEBA79-1911-4C5E-B90E-0143BF3B51B6}.Release|x86.Build.0 = Release|Win32
+		{E3229E28-5A95-4AE9-BDF0-D7185D00BAD7}.Release|x86.ActiveCfg = Release|Win32
+		{E3229E28-5A95-4AE9-BDF0-D7185D00BAD7}.Release|x86.Build.0 = Release|Win32
+		{328EB228-49F2-4C99-A584-B9B11B39E07B}.Release|x86.ActiveCfg = Release|Win32
+		{328EB228-49F2-4C99-A584-B9B11B39E07B}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9D6061F-8497-486A-8359-0D1C29A7D37F}
+	EndGlobalSection
+EndGlobal
