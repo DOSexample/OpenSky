@@ -44,7 +44,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(DXSDK_DIR)Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;$(SolutionDir)Core;$(SolutionDir)Core\oggvorbis\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -52,27 +52,46 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(SolutionDir)Lib;$(SolutionDir)Core\SilverLining\VS2008;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(SolutionDir)Lib;$(SolutionDir)Core\oggvorbis\lib;$(SolutionDir)Core\SilverLining\VS2008;</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="String.cpp" />
-    <ClCompile Include="test_mobject.cpp" />
-    <ClCompile Include="test_motion.cpp" />
-    <ClCompile Include="test_sobject.cpp" />
-    <ClCompile Include="test_sobject_old.cpp" />
+    <ClCompile Include="S03_GIMAGE.cpp" />
+    <ClCompile Include="S05_MAIN0.cpp" />
+    <ClCompile Include="S03_GDATA_01.cpp" />
+    <ClCompile Include="S01_Application.cpp" />
+    <ClCompile Include="S03_GDATA_02.cpp" />
+    <ClCompile Include="S05_MAIN1.cpp" />
+    <ClCompile Include="S05_MAIN2.cpp" />
+    <ClCompile Include="S05_MAIN3.cpp" />
+    <ClCompile Include="S05_MAIN4.cpp" />
+    <ClCompile Include="S05_MAIN5.cpp" />
+    <ClCompile Include="S05_MAIN6.cpp" />
+    <ClCompile Include="S05_MYINFO.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="H01_Application.h" />
-    <ClInclude Include="String.h" />
-    <ClInclude Include="test_mobject.h" />
-    <ClInclude Include="test_motion.h" />
-    <ClInclude Include="test_object.h" />
-    <ClInclude Include="test_sobject.h" />
-    <ClInclude Include="test_sobject_old.h" />
+    <ClInclude Include="H03_GDATA.h" />
+    <ClInclude Include="H03_GOBJECT.h" />
+    <ClInclude Include="H05_MAIN.h" />
+    <ClInclude Include="Resource\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Platform.ico" />
+    <None Include="Resource\Platform01.cur" />
+    <None Include="Resource\Platform02.cur" />
+    <None Include="Resource\Platform03.cur" />
+    <None Include="Resource\Platform04.cur" />
+    <None Include="Resource\Platform05.cur" />
+    <None Include="Resource\Platform06.cur" />
+    <None Include="Resource\Platform07.cur" />
+    <None Include="Resource\Platform08.cur" />
+    <None Include="Resource\Platform09.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\TwelveSky2.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

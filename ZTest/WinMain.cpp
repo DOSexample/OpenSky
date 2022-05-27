@@ -1,4 +1,8 @@
 #include "H01_Application.h"
+#undef PLATFORM_NAME
+#undef PLATFORM_TITLE
+#define PLATFORM_NAME "ZTest"
+#define PLATFORM_TITLE "ZTest"
 
 int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in_opt LPSTR lpCmdLine, __in int nShowCmd )
 {
@@ -16,8 +20,8 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, 
     wCls.cbClsExtra = 0;
     wCls.cbWndExtra = 0;
     wCls.hInstance = hInstance;
-    wCls.hIcon = LoadIcon( hInstance, MAKEINTRESOURCE( IDI_TWELVESKY2 ) );
-    wCls.hCursor = LoadCursor( hInstance, MAKEINTRESOURCE( IDC_CURSOR01 ) );
+    //wCls.hIcon = LoadIcon( hInstance, MAKEINTRESOURCE( IDI_TWELVESKY2 ) );
+    //wCls.hCursor = LoadCursor( hInstance, MAKEINTRESOURCE( IDC_CURSOR01 ) );
     wCls.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
     wCls.lpszMenuName = 0;
     wCls.lpszClassName = PLATFORM_NAME;
@@ -30,7 +34,7 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, 
     {
         dwExStyle = 0;
         dwStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE;
-        //dwExStyle = WS_EX_ACCEPTFILES;
+        dwExStyle = WS_EX_ACCEPTFILES;
         if ( !SetRect( &rc, 0, 0, RES_WIDTH, RES_HEIGHT ) )
         {
             return MessageBox( "[Error::SetRect()]" );

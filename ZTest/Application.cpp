@@ -1,5 +1,5 @@
 #include "H01_Application.h"
-#include "String.h"
+#include "CString.h"
 #include "test_mobject.h"
 #include "test_sobject.h"
 #include "test_sobject_old.h"
@@ -269,8 +269,8 @@ void ApplicationRender( float dTime )
 
     mGXD.BeginFor2D();
     {
-        mGXD.DrawString( String( "LEFT: " ), 10, 10, D3DCOLOR_RGBA(255, 255, 0, 255), 0);
-        mGXD.DrawString( String( "RIGHT: " ), RES_WIDTH-50, 10, D3DCOLOR_RGBA(255, 255, 0, 255), 0);
+        mGXD.DrawString( CString( "LEFT: " ), 10, 10, D3DCOLOR_RGBA(255, 255, 0, 255), 0);
+        mGXD.DrawString( CString( "RIGHT: " ), RES_WIDTH-50, 10, D3DCOLOR_RGBA(255, 255, 0, 255), 0);
     }
     mGXD.EndFor2D();
 

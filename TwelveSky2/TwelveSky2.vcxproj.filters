@@ -13,60 +13,121 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="test">
-      <UniqueIdentifier>{de930db4-3a13-4596-a481-a677dfcdd3e9}</UniqueIdentifier>
+    <Filter Include="S01">
+      <UniqueIdentifier>{570ddf2e-4363-41d0-b613-8a4d94d010b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="test\header">
-      <UniqueIdentifier>{a59578e0-3edd-488e-8a30-c14093631e2e}</UniqueIdentifier>
+    <Filter Include="S02">
+      <UniqueIdentifier>{0382f357-c12c-4f3a-85b5-7d10089f118b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="test\src">
-      <UniqueIdentifier>{55c193d5-7dfa-43e2-ae8b-841da1280bde}</UniqueIdentifier>
+    <Filter Include="S03">
+      <UniqueIdentifier>{415df028-9ad1-4cec-b73f-15e07bde32de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="S04">
+      <UniqueIdentifier>{ca04ed0c-1867-4899-ade2-dd71ac70c838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="S05">
+      <UniqueIdentifier>{d7f81982-e8ef-4c99-aa41-186a7876ed3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="S06">
+      <UniqueIdentifier>{babad0dd-7b3f-4884-a55c-28f3a458b020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="S07">
+      <UniqueIdentifier>{6cf8e65f-6b42-4657-b621-18e828f74f34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="S01_Application.cpp">
+      <Filter>S01</Filter>
     </ClCompile>
-    <ClCompile Include="String.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="S03_GDATA_01.cpp">
+      <Filter>S03</Filter>
     </ClCompile>
-    <ClCompile Include="test_mobject.cpp">
-      <Filter>test\src</Filter>
+    <ClCompile Include="S03_GDATA_02.cpp">
+      <Filter>S03</Filter>
     </ClCompile>
-    <ClCompile Include="test_motion.cpp">
-      <Filter>test\src</Filter>
+    <ClCompile Include="S05_MAIN0.cpp">
+      <Filter>S05</Filter>
     </ClCompile>
-    <ClCompile Include="test_sobject.cpp">
-      <Filter>test\src</Filter>
+    <ClCompile Include="S05_MAIN1.cpp">
+      <Filter>S05</Filter>
     </ClCompile>
-    <ClCompile Include="test_sobject_old.cpp">
-      <Filter>test\src</Filter>
+    <ClCompile Include="S05_MAIN2.cpp">
+      <Filter>S05</Filter>
+    </ClCompile>
+    <ClCompile Include="S05_MAIN3.cpp">
+      <Filter>S05</Filter>
+    </ClCompile>
+    <ClCompile Include="S05_MAIN4.cpp">
+      <Filter>S05</Filter>
+    </ClCompile>
+    <ClCompile Include="S05_MAIN5.cpp">
+      <Filter>S05</Filter>
+    </ClCompile>
+    <ClCompile Include="S05_MAIN6.cpp">
+      <Filter>S05</Filter>
+    </ClCompile>
+    <ClCompile Include="S03_GIMAGE.cpp">
+      <Filter>S03</Filter>
+    </ClCompile>
+    <ClCompile Include="S05_MYINFO.cpp">
+      <Filter>S05</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="H01_Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="String.h">
+    <ClInclude Include="H03_GDATA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test_mobject.h">
-      <Filter>test\header</Filter>
+    <ClInclude Include="H03_GOBJECT.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test_motion.h">
-      <Filter>test\header</Filter>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="test_object.h">
-      <Filter>test\header</Filter>
+    <ClInclude Include="H05_MAIN.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test_sobject.h">
-      <Filter>test\header</Filter>
-    </ClInclude>
-    <ClInclude Include="test_sobject_old.h">
-      <Filter>test\header</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Platform.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform01.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform02.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform03.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform04.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform05.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform06.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform07.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform08.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\Platform09.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\TwelveSky2.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

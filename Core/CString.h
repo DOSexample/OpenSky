@@ -2,36 +2,36 @@
 
 #include <string>
 
-class String : public std::basic_string<char, std::char_traits<char>, std::allocator<char>>
+class CString : public std::basic_string<char, std::char_traits<char>, std::allocator<char>>
 {
 public:
-    String()
+    CString()
     {
     }
-    String( const char* lhs ) 
+    CString( const char* lhs ) 
     {
         this->append( lhs );
     }
 
-    String& operator+( const char* lhs )
+    CString& operator+( const char* lhs )
     {
         this->append( lhs );
         return *this;
     }
-    String& operator+=( const char* lhs )
+    CString& operator+=( const char* lhs )
     {
         this->append( lhs );
         return *this;
     }
 
-    String& operator+( int lhs )
+    CString& operator+( int lhs )
     {
         char tmp[128];
         sprintf( tmp, "%d", lhs );
         this->append( tmp );
         return *this;
     }
-    String& operator+=( int lhs )
+    CString& operator+=( int lhs )
     {
         char tmp[128];
         sprintf( tmp, "%d", lhs );
@@ -39,25 +39,25 @@ public:
         return *this;
     }
 
-    String& operator+( const String& lhs )
+    CString& operator+( const CString& lhs )
     {
         this->append( lhs );
         return *this;
     }
-    String& operator+=( const String& lhs )
+    CString& operator+=( const CString& lhs )
     {
         this->append( lhs );
         return *this;
     }
 
-    String& operator=( const char* lhs )
+    CString& operator=( const char* lhs )
     {
         this->clear();
         this->append( lhs );
         return *this;
     }
 
-    String& operator=( const std::string& lhs )
+    CString& operator=( const std::string& lhs )
     {
         this->clear();
         this->append( lhs );
@@ -72,5 +72,19 @@ public:
     operator char*()
     {
         return (char*)this->c_str();
+    }
+
+    CString& Sprintf( const char* fmt, ... )
+    {
+        char tmp[1024];
+
+	    va_list args;
+	    va_start( args, fmt );
+	    vsprintf( tmp, fmt, args );
+	    va_end( args );
+        this->clear();
+        this->append( tmp );
+
+        return *this;
     }
 };

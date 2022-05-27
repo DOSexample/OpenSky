@@ -102,7 +102,7 @@
 #include <string>
 #include <shellapi.h>
 #include <shlwapi.h>
-//#include <vorbis\\vorbisfile.h>
+#include <vorbis\\vorbisfile.h>
 
 #pragma comment( lib, "d3d9.lib" )
 #ifndef _DEBUG
@@ -116,6 +116,8 @@
 #pragma comment( lib, "dxguid.lib" )
 #pragma comment( lib, "winmm.lib" )
 #pragma comment( lib, "Shlwapi.lib" )
+#pragma comment( lib, "ogg_static.lib" )
+#pragma comment( lib, "vorbisfile_static.lib" )
 
 
 #ifndef DONT_SHARE_STRUCT
@@ -536,6 +538,70 @@ public:
 
 };
 
+//-------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------------------------------
+//CLASS_OF_MINIMAP_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+#define DEF_MINIMAP_VERSION											0x00000002
+class MINIMAPIMG_FOR_GXD
+{
+
+public:
+
+	BOOL mCheckValidState;
+	IMAGE_FOR_GXD mMapImg;
+	float mSclaeRate;
+	float mCropSize[2][2];
+	char mImgFileName[260];
+
+	MINIMAPIMG_FOR_GXD();
+	virtual ~MINIMAPIMG_FOR_GXD();
+
+	void Init();
+	bool Free();
+	bool Load( const char *tFileName );
+	bool Load( HANDLE hFile, const char *tFilePath, const char *tMainFileName );
+	bool Save( const char *tFileName );
+	bool Save( HANDLE hFile );
+	bool ChangeImg( char *tImgFilName );
+
+};
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//DEFINE_CLASS_OF_SOUNDDATA_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+class SOUNDDATA_FOR_GXD
+{
+
+private :
+
+	DWORD mFileDataSize;
+	BYTE *mFileData;
+
+public :
+
+	BOOL mCheckValidState;
+	int mLoadSort;
+	int mDuplicateNum;
+	IDirectSoundBuffer *mSoundData[10];
+
+	SOUNDDATA_FOR_GXD( void );
+   ~SOUNDDATA_FOR_GXD( void );
+
+	void Init( void );
+	void Free( void );
+
+	BOOL LoadFromOGG( char *tFileName, int tLoadSort, int tDuplicateNum, BOOL tCheckRemoveFileData );
+	BOOL SaveToOGG( char *tFileName );
+	void Play(  BOOL tCheckLoop, int tVolume, int tPan );
+	void Stop( void );
+	void ChangeVolumeAndPan( int tVolume, int tPan );
+    bool IsPlaying (void);
+
+};
 //-------------------------------------------------------------------------------------------------
 
 
