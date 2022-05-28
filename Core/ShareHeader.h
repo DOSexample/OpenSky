@@ -1,19 +1,3 @@
-#ifndef SHARE_HEADER_H
-#define SHARE_HEADER_H
-	#ifdef BEGIN_NS
-		#undef BEGIN_NS
-		#undef END_NS
-	#endif
-	#if USE_ADDIN
-		#define BEGIN_NS namespace TW2AddIn {
-		#define END_NS }
-	#else
-		#define BEGIN_NS
-		#define END_NS
-	#endif
-
-
-//#pragma once
 
 //-------------------------------------------------------------------------------------------------
 //_WIN32_WINDOWS
@@ -98,12 +82,15 @@
 #include <d3dx9.h>
 #include <dsound.h>
 #include <dinput.h>
+#ifdef __cplusplus
 #include <map>
 #include <string>
+#endif
 #include <shellapi.h>
 #include <shlwapi.h>
 #include <vorbis\\vorbisfile.h>
 
+#ifdef __cplusplus
 #pragma comment( lib, "d3d9.lib" )
 #ifndef _DEBUG
 	#pragma comment( lib, "d3dx9.lib" )
@@ -118,85 +105,16 @@
 #pragma comment( lib, "Shlwapi.lib" )
 #pragma comment( lib, "ogg_static.lib" )
 #pragma comment( lib, "vorbisfile_static.lib" )
+#endif
 
 
-#ifndef DONT_SHARE_STRUCT
 
+#ifndef SHARE_HEADER1_H
+#define SHARE_HEADER1_H
 //-------------------------------------------------------------------------------------------------
-//DEFINE_CLASS_OF_IMAGE_FOR_GXD
+//DEFINE_WORLD_FVF
 //-------------------------------------------------------------------------------------------------
-BEGIN_NS
-class IMAGE_FOR_GXD
-{
-
-private :
-
-	int GetTwoPowerNumber( int tNumber );
-
-public :
-
-	BOOL mCheckValidState;
-	D3DXIMAGE_INFO mTextureInfo;
-	D3DFORMAT mLoadFormat;
-	IDirect3DTexture9 *mTexture;
-
-	IMAGE_FOR_GXD( void );
-    ~IMAGE_FOR_GXD( void );
-
-	void Init( void );
-	void Free( void );
-
-	BOOL LoadFromTGA( char *tFileName );
-	BOOL LoadFromBMP( char *tFileName );
-	BOOL LoadFromJPG( char *tFileName );
-	BOOL SaveToTGA( char *tFileName );
-	BOOL SaveToBMP( char *tFileName );
-	BOOL SaveToJPG( char *tFileName );
-	BOOL Save( char *tFileName );
-	BOOL Load( char *tFileName );
-	void Draw( int tX, int tY, BOOL tCheckExistPartInfo, int iX, int iY, int lX, int lY );
-	void Draw( int tX, int tY, float tScaleX, float tScaleY );
-	void Draw( int tX, int tY, float tScaleX, float tScaleY, BYTE bAlpha );
-
-};
-//-------------------------------------------------------------------------------------------------
-
-
-//-------------------------------------------------------------------------------------------------
-//DEFINE_CLASS_OF_TEXTURE_FOR_GXD
-//-------------------------------------------------------------------------------------------------
-class TEXTURE_FOR_GXD
-{
-public:
-
-	BOOL mCheckValidState;
-	DWORD mFileDataSize;
-	BYTE *mFileData;
-	D3DXIMAGE_INFO mTextureInfo;
-	int mProcessModeCase;
-	int mAlphaModeCase;
-	#ifdef USE_ADDIN
-	//2.5
-	int mOrgAlphaModeCase;
-	#endif
-	IDirect3DTexture9 *mTexture;
-
-	BOOL CheckTwoPowerNumber( int tNumber );
-
-	void Init( void );
-	BOOL Free( void );
- 
-	BOOL LoadFromTGA( char *tFileName, int tProcessModeCase, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
-	BOOL LoadFromDDS( char *tFileName, int tProcessModeCase, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
-	BOOL SaveToTGA( char *tFileName );
-	BOOL SaveToDDS( char *tFileName );
-	BOOL Save( HANDLE hFile );
-	BOOL Load( HANDLE hFile, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
-	BOOL Load( BYTE* tDataBuffer, int* tDataPosition, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData, char* tTextureType );
-	BOOL Skip( HANDLE hFile );
-	void Create( BOOL tCheckRemoveFileData );
-	void Delete( void );
-};
+const static DWORD WORLD_FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX2;
 //-------------------------------------------------------------------------------------------------
 
 
@@ -406,10 +324,12 @@ WORLDVERTEX_FOR_GXD;
 typedef struct _WORLDINTEX_FOR_GXD
 {
 	DWORD w1, w2, w3;
+	#ifdef __cplusplus
 	_WORLDINTEX_FOR_GXD( )
 		:w1( 0), w2( 0), w3( 0)
 	{
 	}
+	#endif
 }
 WORLDINTEX_FOR_GXD;
 //-------------------------------------------------------------------------------------------------
@@ -510,103 +430,6 @@ LENSFLAREVERTEX_FOR_GXD;
 
 
 //-------------------------------------------------------------------------------------------------
-//DEFINE_CLASS_OF_SKY_FOR_GXD
-//-------------------------------------------------------------------------------------------------
-class SKY_FOR_GXD
-{
-
-public:
-
-	BOOL mCheckValidState;
-	TEXTURE_FOR_GXD mTextureForSkyBox[6];
-	float mLensFlareShapeRatio;
-	TEXTURE_FOR_GXD mTextureForLensFlare[10];
-	float mPostFarPlane;
-	SKYBOXVERTEX_FOR_GXD mSkyBoxVertexBuffer[24];
-	LENSFLAREVERTEX_FOR_GXD mLensFlareVertexBuffer[4];
-
-	SKY_FOR_GXD( void );
-	~SKY_FOR_GXD( void );
-
-	void Init( void );
-	BOOL Free( void );
-
-	BOOL Save( char *tFileName );
-	BOOL Load( char *tFileName, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
-	void DrawForSkyBox( void );
-	void DrawForLensFlare( void* tWorld );
-
-};
-
-//-------------------------------------------------------------------------------------------------
-
-
-//-------------------------------------------------------------------------------------------------
-//CLASS_OF_MINIMAP_FOR_GXD
-//-------------------------------------------------------------------------------------------------
-#define DEF_MINIMAP_VERSION											0x00000002
-class MINIMAPIMG_FOR_GXD
-{
-
-public:
-
-	BOOL mCheckValidState;
-	IMAGE_FOR_GXD mMapImg;
-	float mSclaeRate;
-	float mCropSize[2][2];
-	char mImgFileName[260];
-
-	MINIMAPIMG_FOR_GXD();
-	virtual ~MINIMAPIMG_FOR_GXD();
-
-	void Init();
-	bool Free();
-	bool Load( const char *tFileName );
-	bool Load( HANDLE hFile, const char *tFilePath, const char *tMainFileName );
-	bool Save( const char *tFileName );
-	bool Save( HANDLE hFile );
-	bool ChangeImg( char *tImgFilName );
-
-};
-//-------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------
-//DEFINE_CLASS_OF_SOUNDDATA_FOR_GXD
-//-------------------------------------------------------------------------------------------------
-class SOUNDDATA_FOR_GXD
-{
-
-private :
-
-	DWORD mFileDataSize;
-	BYTE *mFileData;
-
-public :
-
-	BOOL mCheckValidState;
-	int mLoadSort;
-	int mDuplicateNum;
-	IDirectSoundBuffer *mSoundData[10];
-
-	SOUNDDATA_FOR_GXD( void );
-   ~SOUNDDATA_FOR_GXD( void );
-
-	void Init( void );
-	void Free( void );
-
-	BOOL LoadFromOGG( char *tFileName, int tLoadSort, int tDuplicateNum, BOOL tCheckRemoveFileData );
-	BOOL SaveToOGG( char *tFileName );
-	void Play(  BOOL tCheckLoop, int tVolume, int tPan );
-	void Stop( void );
-	void ChangeVolumeAndPan( int tVolume, int tPan );
-    bool IsPlaying (void);
-
-};
-//-------------------------------------------------------------------------------------------------
-
-
-
-//-------------------------------------------------------------------------------------------------
 //DEFINE_COMPRESS_FUNCTION_FOR_GXD
 //-------------------------------------------------------------------------------------------------
 typedef DWORD ( * FCompressBound )( DWORD tSourceLength );
@@ -627,9 +450,7 @@ typedef int ( * FUncompress )( BYTE *tDest, DWORD *tDestLength, BYTE *tSource, D
 
 extern D3DVERTEXELEMENT9 mVertexElementForSKIN2[];
 //extern D3DVERTEXELEMENT9 mVertexElementForSKIN2SHADOW[];
-END_NS
-#endif
 
 
 
-#endif
+#endif //SHARE_HEADER1_H

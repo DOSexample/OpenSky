@@ -1,10 +1,46 @@
-#pragma once
+#ifndef TW2ADDIN_HEADER_H
+#define TW2ADDIN_HEADER_H
 
-#undef SHARE_HEADER_H
-#define USE_ADDIN 1
 #include <ShareHeader.h>
 
+#define BEGIN_NS namespace TW2AddIn {
+#define END_NS }
+
 BEGIN_NS
+
+//-------------------------------------------------------------------------------------------------
+//DEFINE_CLASS_OF_TEXTURE_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+class TEXTURE_FOR_GXD
+{
+public:
+
+	BOOL mCheckValidState;
+	DWORD mFileDataSize;
+	BYTE *mFileData;
+	D3DXIMAGE_INFO mTextureInfo;
+	int mProcessModeCase;
+	int mAlphaModeCase;
+	int mOrgAlphaModeCase;
+	IDirect3DTexture9 *mTexture;
+
+	BOOL CheckTwoPowerNumber( int tNumber );
+
+	void Init( void );
+	BOOL Free( void );
+ 
+	BOOL LoadFromTGA( char *tFileName, int tProcessModeCase, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
+	BOOL LoadFromDDS( char *tFileName, int tProcessModeCase, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
+	BOOL SaveToTGA( char *tFileName );
+	BOOL SaveToDDS( char *tFileName );
+	BOOL Save( HANDLE hFile );
+	BOOL Load( HANDLE hFile, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
+	BOOL Load( BYTE* tDataBuffer, int* tDataPosition, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData, char* tTextureType );
+	BOOL Skip( HANDLE hFile );
+	void Create( BOOL tCheckRemoveFileData );
+	void Delete( void );
+};
+//-------------------------------------------------------------------------------------------------
 
 
 //-------------------------------------------------------------------------------------------------
@@ -150,6 +186,42 @@ public :
 
 };
 //-------------------------------------------------------------------------------------------------
+
+
+
+
+//-------------------------------------------------------------------------------------------------
+//DEFINE_CLASS_OF_SKY_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+class SKY_FOR_GXD
+{
+
+public:
+
+	BOOL mCheckValidState;
+	TEXTURE_FOR_GXD mTextureForSkyBox[6];
+	float mLensFlareShapeRatio;
+	TEXTURE_FOR_GXD mTextureForLensFlare[10];
+	float mPostFarPlane;
+	SKYBOXVERTEX_FOR_GXD mSkyBoxVertexBuffer[24];
+	LENSFLAREVERTEX_FOR_GXD mLensFlareVertexBuffer[4];
+
+	SKY_FOR_GXD(void);
+	~SKY_FOR_GXD(void);
+
+	void Init(void);
+	BOOL Free(void);
+
+	BOOL Save(char* tFileName);
+	BOOL Load(char* tFileName, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData);
+	void DrawForSkyBox(void);
+	void DrawForLensFlare(void* tWorld);
+
+};
+
+//-------------------------------------------------------------------------------------------------
+
+
 
 
 typedef struct CAtmosphere {
@@ -505,5 +577,6 @@ public :
 };
 
 extern GXD mGXD;
-
 END_NS
+
+#endif //TW2ADDIN_HEADER_H

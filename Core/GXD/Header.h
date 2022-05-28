@@ -1,7 +1,83 @@
-﻿#pragma once
+﻿#ifndef GXD_HEADER_H
+#define GXD_HEADER_H
 
 #include <ShareHeader.h>
 #include "WorldMobjectScale.h"
+
+#ifdef __cplusplus
+
+//-------------------------------------------------------------------------------------------------
+//DEFINE_CLASS_OF_IMAGE_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+class IMAGE_FOR_GXD
+{
+
+private :
+
+	int GetTwoPowerNumber( int tNumber );
+
+public :
+
+	BOOL mCheckValidState;
+	D3DXIMAGE_INFO mTextureInfo;
+	D3DFORMAT mLoadFormat;
+	IDirect3DTexture9 *mTexture;
+
+	IMAGE_FOR_GXD( void );
+   ~IMAGE_FOR_GXD( void );
+
+	void Init( void );
+	void Free( void );
+
+	BOOL LoadFromTGA( char *tFileName );
+	BOOL LoadFromBMP( char *tFileName );
+	BOOL LoadFromJPG( char *tFileName );
+	BOOL SaveToTGA( char *tFileName );
+	BOOL SaveToBMP( char *tFileName );
+	BOOL SaveToJPG( char *tFileName );
+	BOOL Save( char *tFileName );
+	BOOL Load( char *tFileName );
+	void Draw( int tX, int tY, BOOL tCheckExistPartInfo, int iX, int iY, int lX, int lY );
+	void Draw( int tX, int tY, float tScaleX, float tScaleY );
+	void Draw( int tX, int tY, float tScaleX, float tScaleY, BYTE bAlpha );
+
+};
+//-------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------------------------------
+//DEFINE_CLASS_OF_TEXTURE_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+class TEXTURE_FOR_GXD
+{
+public:
+
+	BOOL mCheckValidState;
+	DWORD mFileDataSize;
+	BYTE *mFileData;
+	D3DXIMAGE_INFO mTextureInfo;
+	int mProcessModeCase;
+	int mAlphaModeCase;
+	IDirect3DTexture9 *mTexture;
+
+	BOOL CheckTwoPowerNumber( int tNumber );
+
+	void Init( void );
+	BOOL Free( void );
+ 
+	BOOL LoadFromTGA( char *tFileName, int tProcessModeCase, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
+	BOOL LoadFromDDS( char *tFileName, int tProcessModeCase, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
+	BOOL SaveToTGA( char *tFileName );
+	BOOL SaveToDDS( char *tFileName );
+	BOOL Save( HANDLE hFile );
+	BOOL Load( HANDLE hFile, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData );
+	BOOL Load( BYTE* tDataBuffer, int* tDataPosition, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData, char* tTextureType );
+	BOOL Skip( HANDLE hFile );
+	void Create( BOOL tCheckRemoveFileData );
+	void Delete( void );
+};
+//-------------------------------------------------------------------------------------------------
+
 
 //-------------------------------------------------------------------------------------------------
 //DEFINE_CLASS_OF_MOTION_FOR_GXD
@@ -9,24 +85,22 @@
 class MOTION_FOR_GXD
 {
 public:
-
 	BOOL mCheckValidState;
 	int mFrameNum;
 	int mBoneNum;
 	D3DXMATRIX* mKeyMatrix;
 
 	void Init( void );
-	BOOL Free( void );
-
+	void Free( void );
 	BOOL LoadFromG3M( char *tFileName, int tLoadSort );
 	BOOL Save( char *tFileName );
 	BOOL Save( HANDLE hFile );
 	BOOL Load( char *tFileName );
-	BOOL Load( HANDLE hFile, BOOL tNeedCheckValid = TRUE );
-
 	BOOL SaveToMOTION2( char *tFileName );
 
 };
+//-------------------------------------------------------------------------------------------------
+
 
 //-------------------------------------------------------------------------------------------------
 //DEFINE_STRUCT_OF_BUMPEFFECT_FOR_GXD
@@ -83,7 +157,7 @@ public :
 	TEXTURE_FOR_GXD *mTextureAnimation;
 
 	void Init( void );
-	BOOL Free( void );
+	void Free( void );
 	
 	BOOL LoadFromG3S( char *tFileName, char *tTextureName );
 	BOOL ChangeStructureForAcceleration( void );
@@ -113,7 +187,11 @@ public :
 
 	void GetCenterCoord( float tCoord[3] );
 };
+//-------------------------------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------------------------------
+//DEFINE_CLASS_OF_SOBJECT_FOR_GXD
+//-------------------------------------------------------------------------------------------------
 class SOBJECT_FOR_GXD
 {
 public:
@@ -286,13 +364,6 @@ public :
 //-------------------------------------------------------------------------------------------------
 class MOBJECT_FOR_GXD
 {
-
-//private :
-//
-//	D3DXVECTOR3 mScaleValue;	/** Scaling 정보 */
-//
-//	float GetMaxScaleValue_( );	/** Scaling 정보( Scale_X, Scale_Y, Scale_Z) 중 가장 큰 값을 반환하는 함수. */
-
 public :
 
 	BOOL mCheckValidState;
@@ -413,6 +484,20 @@ public :
 	BOOL SetScale( float x, float y, float z );
 };
 //-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//DEFINE_STRUCT_OF_POBJECTINFO_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+typedef struct
+{
+	int mIndex;
+	float mCoord[3];
+	float mAngle[3];
+	POBJECT_FOR_GXD mParticle;
+}
+POBJECTINFO_FOR_GXD;
+//-----------------------------------------------------------------------------------------------
+
 
 //-----------------------------------------------------------------------------------------------
 //CLASS_OF_EFFECT_FOR_GXD
@@ -599,22 +684,98 @@ private:
 //-----------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
-//DEFINE_STRUCT_OF_POBJECTINFO_FOR_GXD
+//DEFINE_CLASS_OF_SOUNDDATA_FOR_GXD
 //-------------------------------------------------------------------------------------------------
-typedef struct
+class SOUNDDATA_FOR_GXD
 {
-	int mIndex;
-	float mCoord[3];
-	float mAngle[3];
-	POBJECT_FOR_GXD mParticle;
-}
-POBJECTINFO_FOR_GXD;
+
+private :
+
+	DWORD mFileDataSize;
+	BYTE *mFileData;
+
+public :
+
+	BOOL mCheckValidState;
+	int mLoadSort;
+	int mDuplicateNum;
+	IDirectSoundBuffer *mSoundData[10];
+
+	SOUNDDATA_FOR_GXD( void );
+   ~SOUNDDATA_FOR_GXD( void );
+
+	void Init( void );
+	void Free( void );
+
+	BOOL LoadFromOGG( char *tFileName, int tLoadSort, int tDuplicateNum, BOOL tCheckRemoveFileData );
+	BOOL SaveToOGG( char *tFileName );
+	void Play(  BOOL tCheckLoop, int tVolume, int tPan );
+	void Stop( void );
+	void ChangeVolumeAndPan( int tVolume, int tPan );
+    bool IsPlaying ( void );
+
+};
+//-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
-//DEFINE_WORLD_FVF
+//DEFINE_CLASS_OF_SKY_FOR_GXD
 //-------------------------------------------------------------------------------------------------
-const static DWORD WORLD_FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX2;
+class SKY_FOR_GXD
+{
+
+public:
+
+	BOOL mCheckValidState;
+	TEXTURE_FOR_GXD mTextureForSkyBox[6];
+	float mLensFlareShapeRatio;
+	TEXTURE_FOR_GXD mTextureForLensFlare[10];
+	float mPostFarPlane;
+	SKYBOXVERTEX_FOR_GXD mSkyBoxVertexBuffer[24];
+	LENSFLAREVERTEX_FOR_GXD mLensFlareVertexBuffer[4];
+
+	SKY_FOR_GXD( void );
+	~SKY_FOR_GXD( void );
+
+	void Init( void );
+	BOOL Free( void );
+
+	BOOL Save(char* tFileName);
+	BOOL Load(char* tFileName, BOOL tCheckCreateTexture, BOOL tCheckRemoveFileData);
+	void DrawForSkyBox( void );
+	void DrawForLensFlare(void* tWorld);
+
+};
 //-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//CLASS_OF_MINIMAP_FOR_GXD
+//-------------------------------------------------------------------------------------------------
+#define DEF_MINIMAP_VERSION											0x00000002
+class MINIMAPIMG_FOR_GXD
+{
+
+public:
+
+	BOOL mCheckValidState;
+	IMAGE_FOR_GXD mMapImg;
+	float mSclaeRate;
+	float mCropSize[2][2];
+	char mImgFileName[260];
+
+	MINIMAPIMG_FOR_GXD();
+	virtual ~MINIMAPIMG_FOR_GXD();
+
+	void Init();
+	bool Free();
+	bool Load( const char *tFileName );
+	bool Load( HANDLE hFile, const char *tFilePath, const char *tMainFileName );
+	bool Save( const char *tFileName );
+	bool Save( HANDLE hFile );
+	bool ChangeImg( char *tImgFilName );
+
+};
+//-------------------------------------------------------------------------------------------------
+
 
 //-------------------------------------------------------------------------------------------------
 //DEFINE_CLASS_OF_WORLD_FOR_GXD
@@ -1089,3 +1250,7 @@ public :
 };
 
 extern GXD mGXD;
+#endif
+
+
+#endif //GXD_HEADER_H

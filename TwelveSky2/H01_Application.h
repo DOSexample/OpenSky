@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ShareHeader.h>
 #include <GXD/Header.h>
 #include <TW2AddIn/Header.h>
 #include <DXHelper.h>

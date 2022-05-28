@@ -18,6 +18,8 @@ mono_crash.*
 
 # Build results
 Build/IntDir
+Build/libtcc/
+TwelveSky2Script/tcc-0.9.27/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
