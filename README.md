@@ -22,7 +22,7 @@ Requirement:
 
 ![alt text](https://raw.githubusercontent.com/DOSexample/OpenSky/main/Screenshot/4.png)
 
-![alt text](https://raw.githubusercontent.com/DOSexample/OpenSky/main/Screenshot/1.png
+![alt text](https://raw.githubusercontent.com/DOSexample/OpenSky/main/Screenshot/1.png)
 
 Live Reload (TCC)
 ![alt text](https://raw.githubusercontent.com/DOSexample/OpenSky/main/Screenshot/5.gif)
